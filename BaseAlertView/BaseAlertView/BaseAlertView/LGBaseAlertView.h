@@ -16,7 +16,6 @@ typedef NS_ENUM(NSInteger, LGBaseAlertViewStyle)
     LGBaseAlertViewStyleEffectExtraLight NS_ENUM_AVAILABLE_IOS(8_0) = UIBlurEffectStyleExtraLight, /**< 模糊，额外亮度，高亮风格 */
     LGBaseAlertViewStyleEffectLight NS_ENUM_AVAILABLE_IOS(8_0) = UIBlurEffectStyleLight, /**< 模糊亮风格 */
     LGBaseAlertViewStyleEffectDark NS_ENUM_AVAILABLE_IOS(8_0) = UIBlurEffectStyleDark,
-    LGBaseAlertViewStyleEffectExtraDark __TVOS_AVAILABLE(10_0) __IOS_PROHIBITED __WATCHOS_PROHIBITED = UIBlurEffectStyleExtraDark,
     LGBaseAlertViewStyleEffectRegular NS_ENUM_AVAILABLE_IOS(10_0) = UIBlurEffectStyleRegular, // Adapts to user interface style
     LGBaseAlertViewStyleEffectProminent NS_ENUM_AVAILABLE_IOS(10_0) = UIBlurEffectStyleProminent,
     
@@ -45,6 +44,7 @@ typedef NS_ENUM(NSInteger, LGBaseContentViewShowAnimateStyle)
 
 @property (nonatomic, assign) CGFloat retAlpha; /**< 最终背景透明度 */
 @property (nonatomic, assign) LGBaseContentViewShowAnimateStyle contentAnimateStyle; /**< 容器动画样式 */
+@property (nonatomic, assign) BOOL allowClickBackgroundAreaHidden; /**< 是否允许点击背景区域隐藏，默认为YES */
 
 @property (nonatomic, strong) UIView *contentView; /**< 内容视图 */
 

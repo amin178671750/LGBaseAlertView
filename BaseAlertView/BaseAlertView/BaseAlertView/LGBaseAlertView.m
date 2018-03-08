@@ -34,6 +34,7 @@ CAAnimationDelegate
 
 @synthesize retAlpha = _retAlpha;
 @synthesize contentAnimateStyle = _contentAnimateStyle;
+@synthesize allowClickBackgroundAreaHidden = _allowClickBackgroundAreaHidden;
 @synthesize contentView = _contentView;
 
 #pragma mark - Super
@@ -55,6 +56,7 @@ CAAnimationDelegate
         _lastAnimated = YES;
         _retAlpha = [self isVisualEffect]?floatDefaultEffectRetAlpha:floatDefaultRetAlpha;
         _contentAnimateStyle = LGBaseContentViewShowAnimateStyleEaseIn;
+        _allowClickBackgroundAreaHidden = YES;
         
         UIView *backView = [self isVisualEffect]?self.backgroundEffectView:self.backgroundView;
         [self addSubview:backView];
@@ -349,6 +351,14 @@ CAAnimationDelegate
     }
     
     _retAlpha = retAlpha;
+}
+
+- (void)setAllowClickBackgroundAreaHidden:(BOOL)allowClickBackgroundAreaHidden
+{
+    _allowClickBackgroundAreaHidden = allowClickBackgroundAreaHidden;
+    
+    UIView *backView = [self isVisualEffect]?self.backgroundEffectView:self.backgroundView;
+    backView.userInteractionEnabled = _allowClickBackgroundAreaHidden;
 }
 
 - (UIView *)backgroundView
