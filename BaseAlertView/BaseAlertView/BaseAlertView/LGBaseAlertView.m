@@ -36,6 +36,8 @@ CAAnimationDelegate
 @synthesize contentAnimateStyle = _contentAnimateStyle;
 @synthesize allowClickBackgroundAreaHidden = _allowClickBackgroundAreaHidden;
 @synthesize contentView = _contentView;
+@synthesize showBlock = _showBlock;
+@synthesize dismissBlock = _dismissBlock;
 
 #pragma mark - Super
 
@@ -337,6 +339,16 @@ CAAnimationDelegate
     if (!show) {
         //移除视图
         [self removeFromSuperview];
+        
+        if (_dismissBlock) {
+            _dismissBlock();
+        }
+    }
+    else
+    {
+        if (_showBlock) {
+            _showBlock();
+        }
     }
 }
 

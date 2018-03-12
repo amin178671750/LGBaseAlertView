@@ -47,6 +47,8 @@ typedef NS_ENUM(NSInteger, LGBaseContentViewShowAnimateStyle)
 @property (nonatomic, assign) BOOL allowClickBackgroundAreaHidden; /**< 是否允许点击背景区域隐藏，默认为YES */
 
 @property (nonatomic, strong) UIView *contentView; /**< 内容视图 */
+@property (nonatomic, copy) void (^showBlock)(void); /**< 显示回调 */
+@property (nonatomic, copy) void (^dismissBlock)(void); /**< 消失回调 */
 
 /**
  初始化弹出视图
