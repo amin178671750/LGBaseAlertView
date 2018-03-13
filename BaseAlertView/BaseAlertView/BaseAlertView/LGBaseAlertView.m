@@ -79,20 +79,16 @@ CAAnimationDelegate
 
 - (void)showInView:(UIView *)view animated:(BOOL)animated
 {
-    //存储动画状态
-    _lastAnimated = animated;
-    
-    view = view?view:[[UIApplication sharedApplication] keyWindow];
-    [view addSubview:self];
-    
-    [self backgroundViewShowOfDismiss:YES];
-    [self contentViewAnimationWithShow:YES];
+    [self showOrDismissViewWithShow:YES
+                           showView:view
+                       showAnimated:animated];
 }
 
 - (void)dismiss
 {
-    [self backgroundViewShowOfDismiss:NO];
-    [self contentViewAnimationWithShow:NO];
+    [self showOrDismissViewWithShow:NO
+                           showView:self.superview
+                       showAnimated:_lastAnimated];
 }
 
 - (void)refreshContentView
@@ -131,6 +127,30 @@ CAAnimationDelegate
 }
 
 #pragma mark - Private
+
+- (void)showOrDismissViewWithShow:(BOOL)show
+                         showView:(UIView *)view
+                     showAnimated:(BOOL)animated
+{
+    if (_animatedIsShow == show) {
+        //防止多次展示或隐藏
+        return;
+    }
+    _animatedIsShow = show;
+    
+    //只有展示的时候才需要设置
+    if (_animatedIsShow) {
+        //存储动画状态
+        _lastAnimated = animated;
+        
+        //添加视图
+        view = view?view:[[UIApplication sharedApplication] keyWindow];
+        [view addSubview:self];
+    }
+    
+    [self backgroundViewShowOfDismiss:_animatedIsShow];
+    [self contentViewAnimationWithShow:_animatedIsShow];
+}
 
 /**
  通过弹出背景样式返回背景视图的颜色
@@ -233,8 +253,8 @@ CAAnimationDelegate
     animation.fillMode = kCAFillModeForwards;
     
     NSMutableArray *values = [NSMutableArray array];
-    
     _animatedIsShow = show;
+
     if (show) {
         [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.7, 1.7, 0.1)]];
         [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.5, 1.5, 0.3)]];
@@ -275,7 +295,6 @@ CAAnimationDelegate
     
     NSMutableArray *values = [NSMutableArray array];
     
-    _animatedIsShow = show;
     if (show) {
         [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.0001, 0.0001, 0.0001)]];
         [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.3, 0.3, 0.3)]];
