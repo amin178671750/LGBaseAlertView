@@ -253,7 +253,6 @@ CAAnimationDelegate
     animation.fillMode = kCAFillModeForwards;
     
     NSMutableArray *values = [NSMutableArray array];
-    _animatedIsShow = show;
 
     if (show) {
         [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.7, 1.7, 0.1)]];
